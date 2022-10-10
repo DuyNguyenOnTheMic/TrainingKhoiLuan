@@ -94,7 +94,7 @@
                 success: function (data) {
                     if (data.success) {
                         Popup.dialog('close');
-                        dataTble;
+                        dataTable.ajax.reload();
                     }
                 }
             });
@@ -110,7 +110,7 @@
                     success: function (data) {
                         if (data.success) {
 
-                            dataTble;
+                            dataTable.ajax.reload();
                         }
                     }
                 });
