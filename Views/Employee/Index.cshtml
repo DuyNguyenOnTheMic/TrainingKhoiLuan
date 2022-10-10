@@ -33,8 +33,8 @@
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap.min.js"></script>
     <script>
         var Popup, dataTble;
-        dataTble = $(document).ready(function () {
-            $("#employee").DataTable({
+        $(document).ready(function () {
+            dataTble = $("#employee").DataTable({
                 "ajax": {
                     "url": "/Employee/GetData",
                     "type": "Get",
@@ -75,8 +75,6 @@
                     atoOpen: true,
                     resizable: false,
                     title: 'fbdbd',
-                    width: 700,
-                    height: 500,
                     close: function () {
                         Popup.dialog('destroy').remove();
                     }
@@ -94,7 +92,7 @@
                 success: function (data) {
                     if (data.success) {
                         Popup.dialog('close');
-                        dataTable.ajax.reload();
+                        dataTble.ajax.reload();
                     }
                 }
             });
@@ -110,7 +108,7 @@
                     success: function (data) {
                         if (data.success) {
 
-                            dataTable.ajax.reload();
+                            dataTble.ajax.reload();
                         }
                     }
                 });
