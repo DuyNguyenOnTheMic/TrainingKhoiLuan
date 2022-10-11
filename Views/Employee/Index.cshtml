@@ -23,6 +23,7 @@
 
 @section scripts{
     <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
 
     <script>
@@ -36,7 +37,11 @@
                 },
                 "columns": [
                     { "data": "employee_name" },
-                    { "data": "birth_date" },
+                    {
+                        "data": "birth_date", render: function (data, type, row) {
+                            return moment(data).format("MM-DD-YYYY");
+                        }
+                    },
                     { "data": "birth_place" },
                     { "data": "age" },
                     {"data":"employee_id" , "render" : function (data) {
