@@ -4,12 +4,27 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TrainingKhoiLuan.DAL;
 using TrainingKhoiLuan.Models;
 
 namespace TrainingKhoiLuan.Controllers
 {
     public class EmployeeController : Controller
     {
+
+        private readonly IEmployeeRepository employeeRepository;
+
+        public EmployeeController()
+        {
+            this.employeeRepository = new EmployeeRepository(new DBModel());
+        }
+
+        public EmployeeController(IEmployeeRepository employeeRepository)
+        {
+            this.employeeRepository = employeeRepository;
+        }
+
+
         // GET: Employee
         public ActionResult Index()
         {
@@ -18,11 +33,7 @@ namespace TrainingKhoiLuan.Controllers
 
         public ActionResult GetData()
         {
-            using (DBModel db = new DBModel())
-            {
-                List<employee> employees = db.employees.ToList<employee>();
-                return Json(new { data = employees }, JsonRequestBehavior.AllowGet);
-            }
+            return Json(employeeRepository.GetEmployees(), JsonRequestBehavior.AllowGet);
         }
 
 
