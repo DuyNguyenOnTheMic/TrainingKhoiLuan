@@ -11,8 +11,7 @@ namespace TrainingKhoiLuan.Controllers
 {
     public class EmployeeController : Controller
     {
-
-        private readonly IEmployeeRepository employeeRepository;
+        private IEmployeeRepository employeeRepository;
 
         public EmployeeController()
         {
@@ -26,12 +25,6 @@ namespace TrainingKhoiLuan.Controllers
 
 
         // GET: Employee
-
-
-
-
-
-
         public ActionResult Index()
         {
             return View();
@@ -41,8 +34,6 @@ namespace TrainingKhoiLuan.Controllers
         {
             return Json(employeeRepository.GetEmployees(), JsonRequestBehavior.AllowGet);
         }
-
-
 
         [HttpGet]
         public ActionResult AddOrEdit(int id = 0)
@@ -100,6 +91,12 @@ namespace TrainingKhoiLuan.Controllers
             employeeRepository.DeleteEmployee(id);
             employeeRepository.Save();
             return Json(new { success = true, message = "delete successfull" }, JsonRequestBehavior.AllowGet);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            employeeRepository.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

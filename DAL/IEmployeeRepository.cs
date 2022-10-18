@@ -7,7 +7,7 @@ using TrainingKhoiLuan.Models;
 
 namespace TrainingKhoiLuan.DAL
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeRepository : IDisposable
     {
         IEnumerable GetEmployees();
         employee GetEmployeeByID(int Id);
