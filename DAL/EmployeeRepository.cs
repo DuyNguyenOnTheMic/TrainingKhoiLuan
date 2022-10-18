@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using TrainingKhoiLuan.Models;
@@ -33,7 +34,8 @@ namespace TrainingKhoiLuan.DAL
             }
             public void DeleteEmployee(int ID)
             {
-                throw new NotImplementedException();
+                employee emp = dBModel.employees.Find(ID);
+                dBModel.employees.Remove(emp);
             }
 
             public void Dispose()
@@ -43,28 +45,26 @@ namespace TrainingKhoiLuan.DAL
 
             public employee GetEmployeeByID(int Id)
             {
-                throw new NotImplementedException();
-            }
+            return dBModel.employees.Find(Id);
+        }
 
 
 
             public void InsertEmployee(employee emp)
             {
-                throw new NotImplementedException();
+                dBModel.employees.Add(emp);
             }
 
             public void Save()
             {
-                throw new NotImplementedException();
+                dBModel.SaveChanges();
             }
 
             public void UpdateEmployee(employee emp)
             {
-                throw new NotImplementedException();
+            dBModel.Entry(emp).State = EntityState.Modified;
             }
 
-           
-
-            
+   
         }
     }

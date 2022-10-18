@@ -26,6 +26,12 @@ namespace TrainingKhoiLuan.Controllers
 
 
         // GET: Employee
+
+
+
+
+
+
         public ActionResult Index()
         {
             return View();
@@ -49,7 +55,7 @@ namespace TrainingKhoiLuan.Controllers
             {
                 using (DBModel db = new DBModel())
                 {
-                    return View(db.employees.Where(x => x.employee_id == id).FirstOrDefault<employee>());
+                    return View(/*db.employees.Where(x => x.employee_id == id).FirstOrDefault<employee>()*/employeeRepository.GetEmployeeByID(id));
                 }
             }
         }
@@ -62,14 +68,20 @@ namespace TrainingKhoiLuan.Controllers
             using(DBModel db=new DBModel()){
                 if (emp.employee_id==0)
                 {
-                    db.employees.Add(emp);
-                    db.SaveChanges();
+                    //db.employees.Add(emp);
+                    //db.SaveChanges();
+                    //return Json(new { success = true, message = "save successfull" }, JsonRequestBehavior.AllowGet);
+                    employeeRepository.InsertEmployee(emp);
+                    employeeRepository.Save();
                     return Json(new { success = true, message = "save successfull" }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    db.Entry(emp).State = EntityState.Modified;
-                    db.SaveChanges();
+                    //db.Entry(emp).State = EntityState.Modified;
+                    //db.SaveChanges();
+                    //return Json(new { success = true, message = "update successfull" }, JsonRequestBehavior.AllowGet);
+                    employeeRepository.UpdateEmployee(emp);
+                    employeeRepository.Save();
                     return Json(new { success = true, message = "update successfull" }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -78,13 +90,16 @@ namespace TrainingKhoiLuan.Controllers
 
         public ActionResult Delete(int id)
         {
-            using (DBModel db = new DBModel())
-            {
-                employee emp = db.employees.Where(x => x.employee_id == id).FirstOrDefault<employee>();
-                db.employees.Remove(emp);
-                db.SaveChanges();
-                return Json(new { success = true, message = "delete successfull" }, JsonRequestBehavior.AllowGet);
-            }
+            //using (DBModel db = new DBModel())
+            //{
+            //    employee emp = db.employees.Where(x => x.employee_id == id).FirstOrDefault<employee>();
+            //    db.employees.Remove(emp);
+            //    db.SaveChanges();
+            //    return Json(new { success = true, message = "delete successfull" }, JsonRequestBehavior.AllowGet);
+            //}
+            employeeRepository.DeleteEmployee(id);
+            employeeRepository.Save();
+            return Json(new { success = true, message = "delete successfull" }, JsonRequestBehavior.AllowGet);
         }
     }
 }
